@@ -1,0 +1,23 @@
+<nav class="navbar">
+
+<h2>Github Issues Tracker</h2>
+
+<div>
+<input id="searchInput" type="text" placeholder="Search issue">
+<button onclick="searchIssue()">Search</button>
+</div>
+
+</nav>
+
+
+<div class="tabs">
+
+<button onclick="filterIssues('all')" class="active">All</button>
+
+<button onclick="filterIssues('open')">Open</button>
+
+<button onclick="filterIssues('closed')">Closed</button>
+
+</div>
+
+<div id="issuesContainer" class="issues-grid"></div>
