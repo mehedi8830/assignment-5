@@ -6,7 +6,7 @@
     <title>GitHub Issues Tracker | Home</title>
     <link
       rel="shortcut icon"
-      href="./image/github-logo.png"
+      href="./assets/github-logo.png"
       type="image/x-icon"
     />
     <!-- tailwind + daisy -->
@@ -17,9 +17,12 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- font  -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Icons -->
     <link
@@ -31,36 +34,44 @@
     />
     <style>
       * {
-         font-family: "Montserrat", sans-serif;
+        font-family: "Geist", sans-serif;
       }
     </style>
   </head>
-  <body class="bg-[#F8FAFC]">
+  <body class="bg-[#f0f5fa]">
     <header>
       <div
-        class="navbar bg-base-100 shadow-sm flex-col md:flex-row gap-4 md:justify-between items-center px-20"
+        class="navbar bg-base-100 shadow-sm flex-col md:flex-row gap-4 md:justify-between items-center px-5 md:px-10 lg:px-20"
       >
         <div class="flex gap-2 items-center">
-          <img src="./image/github-logo.png" alt="" class="w-9 h-9" />
+          <img src="./assets/github-logo.png" alt="" class="w-9 h-9" />
           <h2 class="font-semibold text-2xl">GitHub Issues Tracker</h2>
         </div>
         <div class="flex gap-4">
-          <input
+          <div>
+            <i class="fa-solid fa-magnifying-glass"></i> 
+            <input
+            id="inputSearch"
             type="text"
-            placeholder="Search"
-            class="input input-bordered w-24 md:w-auto"
+            placeholder="Search Issues"
+            class="input input-bordered w-32 md:w-auto"
           />
-          <button class="px-4 py-[9px] bg-[#4A00FF] text-white font-semibold rounded-lg">
-            + New Issue
+          </div>
+          <button
+            onclick="searchResults('searchBtn')"
+            id="searchBtn"
+            class="px-4 py-[9px] bg-[#4A00FF] text-white font-semibold rounded-lg"
+          >
+            Search
           </button>
         </div>
       </div>
     </header>
 
-    <main class="max-w-[1110px] mx-auto my-[60px]">
+    <main class="max-w-[1110px] mx-auto py-[60px]">
       <!-- filter btn  -->
       <section class="p-4 shadow-sm mb-4 bg-white rounded-lg">
-        <div class="flex gap-2">
+        <div class="flex flex-wrap justify-center md:justify-start gap-2">
           <button
             onclick="toggleStyle('allBtn')"
             id="allBtn"
@@ -84,12 +95,18 @@
           </button>
         </div>
       </section>
+
+            <!-- Spinner -->
+    <section id="spinner" class="flex justify-center items-center my-16 hidden">
+      <span class="loading loading-spinner loading-xl"></span>
+    </section>
+
       <!-- issue section  -->
-      <section class="shadow-sm mb-4 bg-white rounded-lg">
-        <div class="flex justify-between items-center p-6">
+      <section id="container" class="shadow-sm mb-4 bg-white rounded-lg">
+        <div class="flex flex-col md:flex-row gap-4 md:justify-between md:items-center p-6">
           <div>
             <div class="flex items-center gap-2">
-              <img src="./image/Aperture.png" alt="" />
+              <img src="./assets/Aperture.png" alt="" />
               <div>
                 <h4 class="font-semibold text-[20px]">
                   <span id="issueCount">0</span> Issues
@@ -110,12 +127,37 @@
           </div>
         </div>
         <hr class="border-gray-300" />
+
         <!--All Issue card container -->
-        <div id="allCardContainer" class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div
+          id="allCardContainer"
+          class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3"
+        >
           <!-- cards -->
-          
         </div>
 
+        <!-- Modal -->
+        <div>
+          <!-- You can open the modal using ID.showModal() method -->
+          <dialog id="my_modal_3" class="modal">
+            <div class="modal-box">
+              <form method="dialog">
+                <button
+                  class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                >
+                  ✕
+                </button>
+              </form>
+
+              <div id="modalContainer" class="space-y-6"></div>
+
+              <form method="dialog" class="flex justify-end">
+                <!-- if there is a button in form, it will close the modal -->
+                <button class="btn bg-[#4A00FF] text-white">Close</button>
+              </form>
+            </div>
+          </dialog>
+        </div>
       </section>
     </main>
 
