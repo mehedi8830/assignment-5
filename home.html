@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub Issues Tracker | Home</title>
+    <link
+      rel="shortcut icon"
+      href="./image/github-logo.png"
+      type="image/x-icon"
+    />
+    <!-- tailwind + daisy -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      * {
+         font-family: "Montserrat", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-[#F8FAFC]">
+    <header>
+      <div
+        class="navbar bg-base-100 shadow-sm flex-col md:flex-row gap-4 md:justify-between items-center px-20"
+      >
+        <div class="flex gap-2 items-center">
+          <img src="./image/github-logo.png" alt="" class="w-9 h-9" />
+          <h2 class="font-semibold text-2xl">GitHub Issues Tracker</h2>
+        </div>
+        <div class="flex gap-4">
+          <input
+            type="text"
+            placeholder="Search"
+            class="input input-bordered w-24 md:w-auto"
+          />
+          <button class="px-4 py-[9px] bg-[#4A00FF] text-white font-semibold rounded-lg">
+            + New Issue
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-[1110px] mx-auto my-[60px]">
+      <!-- filter btn  -->
+      <section class="p-4 shadow-sm mb-4 bg-white rounded-lg">
+        <div class="flex gap-2">
+          <button
+            onclick="toggleStyle('allBtn')"
+            id="allBtn"
+            class="btn w-30 p-2.5 text-center bg-[#4A00FF] text-white rounded-sm font-semibold text-[12px]"
+          >
+            All
+          </button>
+          <button
+            onclick="toggleStyle('openBtn')"
+            id="openBtn"
+            class="btn w-30 p-2 text-center bg-white text-[#64748B] rounded-sm border border-[#E4E4E7] font-medium text-[12px]"
+          >
+            Open
+          </button>
+          <button
+            onclick="toggleStyle('closedBtn')"
+            id="closedBtn"
+            class="btn w-30 p-2 text-center bg-white text-[#64748B] rounded-sm border border-[#E4E4E7] font-medium text-[12px]"
+          >
+            Closed
+          </button>
+        </div>
+      </section>
+      <!-- issue section  -->
+      <section class="shadow-sm mb-4 bg-white rounded-lg">
+        <div class="flex justify-between items-center p-6">
+          <div>
+            <div class="flex items-center gap-2">
+              <img src="./image/Aperture.png" alt="" />
+              <div>
+                <h4 class="font-semibold text-[20px]">
+                  <span id="issueCount">0</span> Issues
+                </h4>
+                <p class="text-[#64748B]">
+                  Track and manage your project issues
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <p class="font-semibold">
+              <span class="text-[#00A96E]">●</span> Open
+            </p>
+            <p class="font-semibold">
+              <span class="text-[#A855F7]">●</span> Closed
+            </p>
+          </div>
+        </div>
+        <hr class="border-gray-300" />
+        <!--All Issue card container -->
+        <div id="allCardContainer" class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+          <!-- cards -->
+          
+        </div>
+
+      </section>
+    </main>
+
+    <!-- Js  -->
+    <script src="./scripts/script.js"></script>
+  </body>
+</html>
