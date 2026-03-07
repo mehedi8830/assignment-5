@@ -1,0 +1,188 @@
+const allBtn = document.getElementById("allBtn");
+const openBtn = document.getElementById("openBtn");
+const closedBtn = document.getElementById("closedBtn");
+const container = document.getElementById("container");
+const spinner = document.getElementById("spinner");
+const allCardContainer = document.getElementById("allCardContainer");
+const issueCount = document.getElementById("issueCount");
+const inputSearch = document.getElementById("inputSearch");
+const modalContainer = document.getElementById("modalContainer");
+let allCard = [];
+let openCard = [];
+let closedCard = [];
+
+function toggleStyle(btn) {
+  const btns = document.querySelectorAll(".btn");
+  btns.forEach((btn) => {
+    btn.classList.remove("bg-[#4A00FF]", "text-white", "font-semibold");
+    btn.classList.add(
+      "bg-white",
+      "text-[#64748B]",
+      "border-[#E4E4E7]",
+      "font-medium",
+    );
+  });
+  const selectBtn = document.getElementById(btn);
+
+  selectBtn.classList.remove("bg-white", "text-[#64748B]", "border-[#E4E4E7]");
+  selectBtn.classList.add("bg-[#4A00FF]", "text-white", "font-semibold");
+
+  inputSearch.value = "";
+  loadCards(selectBtn);
+}
+
+const manageSpinner = (status) => {
+  if (status == true) {
+    spinner.classList.remove("hidden");
+    container.classList.add("hidden");
+  } else {
+    spinner.classList.add("hidden");
+    container.classList.remove("hidden");
+  }
+};
+
+async function loadCards(Btn) {
+  manageSpinner(true);
+  const res = await fetch(
+    "https://phi-lab-server.vercel.app/api/v1/lab/issues",
+  );
+  const data = await res.json();
+  displayCards(data.data, Btn);
+}
+
+function displayCards(cards, Btn) {
+  allCardContainer.innerHTML = "";
+  allCard = [];
+  openCard = [];
+  closedCard = [];
+  cards.forEach((card) => {
+    const div = document.createElement("div");
+    div.innerHTML = `
+        <div onclick="issueDetail(${card.id})" class = "shadow-sm h-full mb-4 bg-white rounded-lg border-t-4 ${card.status === "open" ? `border-t-[#00A96E]` : `border-t-[#A855F7]`} ">
+            <div class="p-6 space-y-3">
+            <div class="flex justify-between">  
+            <img src="${card.status === "open" ? `./assets/Open-Status.png` : `./assets/Closed-Status.png`}" alt="" />
+            <div
+            class="badge ${card.priority == "high" ? `text-[#EF4444] bg-[#FEECEC]` : card.priority == "medium" ? `bg-[#FFF8DB] text-[#D97706]` : `bg-[#EEEFF2] text-[#9CA3AF]`} px-[26px] py-[6px] font-medium rounded-full"
+            >
+          ${card.priority}
+          </div>
+          </div>
+          <div>
+          <h3 class="font-semibold text-[14px] mb-2">
+          ${card.title}
+          </h3>
+          <p class="text-[12px] text-[#64748B] line-clamp-2">
+          ${card.description}
+          </p>
+          </div>
+          <div class="flex gap-1 flex-wrap justify-center">
+          <div
+          class="badge bg-[#FEECEC] text-[#EF4444] border-[#FECACA] text-[12px] font-medium rounded-full"
+          >
+          <i class="fa-solid fa-bug"></i>${card.labels[0]}
+          </div>
+          <div
+          class="badge bg-[#FFF8DB] text-[#D97706] border-[#FDE68A] text-[12px] font-medium rounded-full"
+          >
+          <i class="fa-solid fa-life-ring"></i>${card.labels[1]}
+          </div>
+          </div>
+          </div>
+          <hr class="border-gray-300" />
+          <div class="p-6 space-y-2">
+          <p class="text-[12px] text-[#64748B]">${card.author}</p>
+          <p class="text-[12px] text-[#64748B]">${card.createdAt}</p>
+          </div>
+          </div>
+          `;
+
+    if (Btn === openBtn) {
+      if (card.status === "open") {
+        allCardContainer.appendChild(div);
+        openCard.push(card);
+        issueCount.innerText = `${openCard.length}`;
+      }
+    } else if (Btn == closedBtn) {
+      if (card.status == "closed") {
+        allCardContainer.appendChild(div);
+        closedCard.push(card);
+        issueCount.innerText = `${closedCard.length}`;
+      }
+    } else {
+      allCardContainer.appendChild(div);
+      allCard.push(card);
+      issueCount.innerText = `${allCard.length}`;
+    }
+  });
+  manageSpinner(false);
+}
+
+loadCards(allBtn);
+
+async function searchResults(search) {
+  const searchValues = inputSearch.value;
+  console.log(searchValues);
+  const res = await fetch(
+    `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchValues}`,
+  );
+  const data = await res.json();
+  console.log(data.data);
+  displayCards(data.data, allBtn);
+}
+
+// Show modal functionality
+const issueDetail = (id) => {
+    console.log(id)
+  fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
+    .then((res) => res.json())
+    .then((detail) => displayModal(detail.data));
+}
+const displayModal = (card) => {
+    modalContainer.innerHTML = `
+                <div>
+                  <h3>${card.title}</h3>
+                  <div class="flex items-center">
+                    <div
+                      class="badge ${card.status == "open" ? `bg-[#00A96E]` : `bg-[#EF4444]`} text-white text-[12px] font-medium rounded-full"
+                    >
+                      ${card.status}
+                    </div>
+                    <div class="text-[#64748B] text-[12px] flex flex-col md:flex-row gap-1 ml-2">
+                      <div> • Opened by ${card.assignee} </div>
+                      <div> • ${card.createdAt}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex gap-1">
+                  <div
+                    class="badge bg-[#FEECEC] text-[#EF4444] border-[#FECACA] text-[12px] font-medium rounded-full"
+                  >
+                    <i class="fa-solid fa-bug"></i>Bugs
+                  </div>
+                  <div
+                    class="badge bg-[#FFF8DB] text-[#D97706] border-[#FDE68A] text-[12px] font-medium rounded-full"
+                  >
+                    <i class="fa-solid fa-life-ring"></i>Help Wanted
+                  </div>
+                </div>
+                <div class="text-[#64748B]">The navigation menu doesn't collapse properly on mobile devices. Need to fix the responsive behavior.</div>
+                <div class="p-4 grid grid-cols-2 gap-2.5">
+                    <div>
+                        <p class="text-[#64748B]">Assignee:</p>
+                        <h5 class="font-bold">${card.assignee}</h5>
+                    </div>
+                    <div>
+                        <p class="text-[#64748B]">Priority:</p>
+                         <div
+                      class="badge ${card.priority == "high" ? `bg-[#EF4444]` : card.priority == "medium" ? `bg-[#D97706]` : `bg-[#00A96E]`} text-white text-[12px] font-medium rounded-full"
+                    >
+                      ${card.priority}
+                    </div>
+                    </div>
+                </div>
+              </div>       
+    `; 
+    document.getElementById("my_modal_3").showModal();
+}
+
