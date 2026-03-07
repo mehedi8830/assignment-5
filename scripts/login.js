@@ -1,20 +1,12 @@
-function login(){
+document.getElementById("login-btn").addEventListener("click", function () {
+  const inputUsername = document.getElementById("inputUsername");
+  const inputPassword = document.getElementById("inputPassword");
 
-    event.preventDefault()
-
-const username = document.getElementById("username").value
-const password = document.getElementById("password").value
-
-if(username === "admin" && password === "admin123"){
-    
-    localStorage.setItem("login","true")
-    window.location.href="dashboard.html"
-
-}
-else{
-
-alert("Invalid Credentials")
-
-}
-
-}
+  if (inputUsername.value == "admin" && inputPassword.value == "admin123") {
+    alert("Sign In Successfully.");
+    window.location.assign("home.html");
+  } else {
+    alert("Sign In Failed.");
+  }
+  return;
+});

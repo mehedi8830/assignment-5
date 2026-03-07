@@ -1,82 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- title and logo -->
-<title>Github Issues Tracker</title>
-<link rel="shortcut icon" href="./image/github-logo.png" type="image/x-icon">
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub Issues Tracker | Login</title>
+    <link
+      rel="shortcut icon"
+      href="./assets/github-logo.png"
+      type="image/x-icon"
+    />
+    <!-- tailwind + daisy -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
 
-<!-- tailwind + daisyui -->
- <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-<!-- font-montserrat -->
- <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-
-  <style>
+    <!-- Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
       * {
-         font-family: "Montserrat", sans-serif;
+        font-family: "Geist", sans-serif;
       }
     </style>
+  </head>
+  <body class="bg-[#F8FAFC] py-20">
+    <div class="p-8 max-w-md mx-auto bg-white shadow-md rounded-lg">
+      <div class="text-center">
+        <div class="flex justify-center">
+          <img src="./assets/github-logo.png" alt="" />
+        </div>
+        <h2 class="font-semibold text-2xl mt-6">GitHub Issues Tracker</h2>
+        <p class="text-[#64748B]">Sign in to manage your issues</p>
+      </div>
+      <div class="form pt-6">
+        <label class="label font-medium text-[#080808]">Username</label>
+        <input
+          id="inputUsername"
+          type="text"
+          class="input border-1 border-[#E4E4E7] rounded-lg w-full"
+          placeholder="Enter Username"
+        />
+        <p class="text-primary mb-4">Default: admin</p>
 
-</head>
+        <label class="label font-medium text-[#080808]">Password</label>
+        <input
+          id="inputPassword"
+          type="password"
+          class="input border-1 border-[#E4E4E7] rounded-lg w-full"
+          placeholder="Enter Password"
+        />
+        <p class="text-primary">Default: admin123</p>
 
-<body>
+        <button id="login-btn" class="btn bg-[#4A00FF] text-white font-bold mt-6 rounded-lg w-full">
+          Sign In
+        </button>
 
-    <section  class="bg-gray-200 flex items-center justify-center min-h-screen">
-        <div class="bg-white w-full max-w-sm p-8 rounded-lg shadow-lg">
-
-            <div class="text-center">
-            <img src="./image/github-logo.png" class="w-14 mx-auto mb-4">
-            <h2 class="text-xl font-semibold text-gray-800">GitHub Issues Tracker</h2>
-             <p class="text-gray-500 text-sm mb-6">Sign in to manage your issues</p>
+        <div class="divider my-6">
+          <span>OR</span>
         </div>
 
+        <p class="mb-6 text-[#64748B] text-center">Demo Credentials:</p>
 
-        <form class="space-y-4">
-            <div>
-                <label class="text-sm font-medium text-gray-700">Username</label>
-                <input id="username" type="text" placeholder="Enter Username" class="w-full mt-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"/>
-                <p class="text-xs text-blue-500 mt-1">Default: admin</p>
-            </div>
-
-            <div>
-                <label class="text-sm font-medium text-gray-700">Password</label>
-                <input id="password" type="password" placeholder="Enter Password" class="w-full mt-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"/>
-                <p class="text-xs text-blue-500 mt-1">Default: admin123</p>
-            </div>
-            
-            
-            <button onclick="login()" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-2 rounded-md hover:opacity-90 transition">
-                Sign In
-
-            </button>
-        </form>
-        
-        
-        <div class="flex items-center my-5">
-            <hr class="flex-grow border-gray-300">
-            <span class="mx-2 text-gray-400 text-sm">OR</span>
-            <hr class="flex-grow border-gray-300">
+        <div class="py-6 bg-[#F8FAFC] text-center rounded-lg">
+          <p><span class="font-bold">Username: </span>admin</p>
+          <p><span class="font-bold">Password: </span>admin123</p>
         </div>
-        
-        
-        <div class="bg-gray-100 p-4 rounded text-center text-sm">
-            <p class="text-gray-500 mb-2">Demo Credentials</p>
-            <p>
-                <span class="font-medium">Username:</span> admin
-            </p>
-            <p>
-                <span class="font-medium">Password:</span> admin123
-            </p>
-        </div>
-    </section>
-
-
-
-<script src="./scripts/login.js"></script>
-</body>
+      </div>
+      <script src="./scripts/login.js"></script>
+    </div>
+  </body>
 </html>
