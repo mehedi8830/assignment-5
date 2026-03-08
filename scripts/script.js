@@ -131,6 +131,7 @@ async function searchResults(search) {
   displayCards(data.data, allBtn);
 }
 
+
 // Show modal functionality
 const issueDetail = (id) => {
     console.log(id)
